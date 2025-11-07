@@ -3,17 +3,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface BlogArticleProps{
-  articleId: string
+  image: string,
+  title: string,
+  datePublished: string,
+  body: string,
+  excerpt: string,
+  href: string
 }
 
 const BlogArticle = (props: BlogArticleProps) => {
-  const { articleId } = props;
+  const { image, title, datePublished, body, href, excerpt } = props;
 
   return (
     <div className="article">
       <div className="article-image-wrapper">
         <Image 
-          src="/images/hero8.jpg"
+          src={image}
           alt="Blog Article Image"
           fill
           className="article-image"
@@ -25,14 +30,14 @@ const BlogArticle = (props: BlogArticleProps) => {
             <CalendarMonth />
           </span>
           <span>
-            <p className="text">30th Oct, 2025</p>
+            <p className="text">{datePublished}</p>
           </span>
         </span>
       </div>
-      <h3 className="article-title">Lorem ipsum dolor sit amet ipsum dolor sit amet. </h3>
-      <p className="regular-text article-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium esse rerum, facilis iusto exercitationem, voluptas voluptatum odio pariatur, vel nemo iure dolorem optio. Temporibus dignissimos iusto impedit nihil, dolorum possimus!</p>
+      <h3 className="article-title">{title}</h3>
+      <p className="regular-text article-body">{excerpt}</p>
       <div className="article-cta">
-        <Link href={`/blog/${articleId}`} className="read-more">Read More</Link>
+        <Link href={href ?? "/contact"} className="read-more">Read More</Link>
         <ArrowRightAlt className="article-cta-icon" />
       </div>
     </div>

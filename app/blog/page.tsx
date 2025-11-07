@@ -1,7 +1,13 @@
 import BlogArticle from '@/components/BlogArticle';
+import { urlFor } from '@/sanity/imageBuilder';
+import { fetchContent } from '@/sanity/lib/fetchers';
+import { ARTICLES_QUERY } from '@/sanity/queries/articles';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { SanityDocument } from 'next-sanity';
 
-const page = () => {
+const page = async () => {
+  const articles = await fetchContent(ARTICLES_QUERY);
+
   return (
     <div className="page blog-page">
       <section className="page-banner">
@@ -17,33 +23,23 @@ const page = () => {
 
       <section className="grid">
         <div className="container">
-          <BlogArticle 
-            articleId='1'
-          />
-          <BlogArticle 
-            articleId='2'
-          />
-          <BlogArticle 
-            articleId='3'
-          />
-          <BlogArticle 
-            articleId='4'          
-          />
-          <BlogArticle 
-            articleId='5'
-          />
-          <BlogArticle 
-            articleId='6'
-          />
-          <BlogArticle 
-            articleId='7'
-          />
-          <BlogArticle 
-            articleId='8'
-          />
-          <BlogArticle 
-            articleId='9'
-          />
+          {
+            articles.length !== 0 ? articles.map((article: SanityDocument) => (
+              <BlogArticle
+                key={article._id}
+                image={urlFor(article.coverImage).url()}
+                title={article.title}
+                body={article.body}
+                datePublished={new Date(article._createdAt).toLocaleDateString("en-us", {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+                excerpt={article.excerpt}
+                href={article.slug}
+              />
+            )) : <p className="empty-state">No articles to display yet</p>
+          }
         </div>
       </section>
 

@@ -249,7 +249,8 @@ section {
 .about-subtitle,
 .article-title,
 .program-title,
-.footer-item-title {
+.footer-item-title,
+.empty-state {
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -500,7 +501,8 @@ textarea:focus {
 
 .blog-page .grid .container,
 .events-page .grid .container,
-.our-team .grid .container {
+.our-team .grid .container,
+.upcoming-events .grid .container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -614,6 +616,10 @@ textarea:focus {
   color: var(--text-neutral);
 }
 
+.empty-state{
+  color: var(--text-neutral-light);
+}
+
 @media screen and (min-width: 768px) {
   .logo-link{
     font-size: 1.5rem;
@@ -709,7 +715,8 @@ textarea:focus {
 
   .blog-page .grid .container,
   .events-page .grid .container,
-  .our-team .grid .container {
+  .our-team .grid .container,
+  .upcoming-events .grid .container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;

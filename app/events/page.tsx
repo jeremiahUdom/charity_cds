@@ -1,8 +1,12 @@
-import ProgramCard from '@/components/ProgramCard';
+import EventCard from '@/components/EventCard';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
-import React from 'react';
+import { EVENTS_QUERY } from '@/sanity/queries/events';
+import { fetchContent } from '@/sanity/lib/fetchers';
+import { SanityDocument } from 'next-sanity';
 
-const page = () => {
+const page = async () => {
+  const events = await fetchContent(EVENTS_QUERY);
+
   return (
     <div className='events-page'>
       <section className="page-banner">
@@ -18,15 +22,23 @@ const page = () => {
 
       <section className="grid">
         <div className="container">
-          <ProgramCard />
-          <ProgramCard />
-          <ProgramCard />
-          <ProgramCard />
-          <ProgramCard />
-          <ProgramCard />
-          <ProgramCard />
-          <ProgramCard />
-          <ProgramCard />
+          {
+            events.length !== 0 ? events.map((event: SanityDocument) => (
+              <EventCard
+                key={event._id}
+                title={event.title}
+                description={event.description}
+                date={new Date(event.starts).toLocaleDateString("en-us", {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+                venue={event.venue}
+                startTime={new Date(event.starts).toLocaleTimeString()}
+                endTime={new Date(event.ends).toLocaleTimeString()}
+              />
+            )) : <p className="empty-state">No upcoming event</p>
+          }
         </div>
       </section>
 

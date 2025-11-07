@@ -1,9 +1,15 @@
-import TeamMember from '@/components/TeamMember'
-import aboutContent from '@/static/data/aboutContent'
-import Image from 'next/image'
-import React from 'react'
+import TeamMember from '@/components/TeamMember';
+import { urlFor } from '@/sanity/imageBuilder';
+import { fetchContent } from '@/sanity/lib/fetchers';
+import { TEAM_QUERY } from '@/sanity/queries/team';
+import aboutContent from '@/static/data/aboutContent';
+import Image from 'next/image';
+import React from 'react';
 
-const index = () => {
+const page = async () => {
+  const teamMembers = await fetchContent(TEAM_QUERY);
+  console.log(teamMembers)
+
   return (
     <div className="page about-page">
       <section className="page-banner">
@@ -37,9 +43,17 @@ const index = () => {
         <h2 className="section-title">Meet Our Team</h2>
           <div className="grid">
             <div className="container">
-              <TeamMember />
-              <TeamMember />
-              <TeamMember />
+              {
+                teamMembers.length !== 0 ? teamMembers.map((member) => (
+                  <TeamMember 
+                    key={member._key}
+                    name={member.fullName}
+                    role={member.role}
+                    imgUrl={urlFor(member.image).url()}
+                  />
+                ))    
+                : <p className="empty-state">No team members added yet</p>
+              }
             </div>
           </div>
       </section>
@@ -47,4 +61,4 @@ const index = () => {
   )
 }
 
-export default index
+export default page;

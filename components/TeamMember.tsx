@@ -1,19 +1,26 @@
 import Image from 'next/image';
 import React from 'react';
 
-const TeamMember = () => {
+interface TeamMemberProps{ 
+  name: string
+  imgUrl: string
+  role: string
+}
+
+const TeamMember = (props: TeamMemberProps) => {
+  const { imgUrl, name, role } = props;
   return (
     <div className="member-card">
       <div className="member-image-wrapper">
         <Image 
-          src={"/images/user.png"}
-          alt="An image of the member"
+          src={imgUrl}
+          alt="An image of the team member"
           fill
           className="member-image"
         />
       </div>
-      <p className="member-name">Jane Doe</p>
-      <p className="member-title">CDS Officer</p>
+      <p className="member-name">{name}</p>
+      <p className="member-title">{role}</p>
     </div>
   );
 }

@@ -25,7 +25,7 @@ const page = () => {
           </div>
           <div className="contact-card">
             <form action="" className="contact-form">
-              <h2 className="section-header">Send Us a Message</h2>
+              <h2 className="section-header">Send Us a Quick Message</h2>
               <div className="form-group">
                 <label htmlFor="name" className="label">Name</label>
                 <input type="text" id="name" name="name" className="input-field" required />
