@@ -1,4 +1,5 @@
 import { LocationPin, AccessTimeFilled } from '@mui/icons-material';
+import Link from 'next/link';
 
 interface EventCardProps{
   title: string
@@ -23,6 +24,7 @@ const EventCard = (props: EventCardProps) => {
         <LocationPin />
         <span className="program-location-text">{venue}</span>
       </div>
+      <Link className="btn" href={"/project/id"}>Learn More</Link>
     </div>
   );
 }

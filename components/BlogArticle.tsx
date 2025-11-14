@@ -37,7 +37,7 @@ const BlogArticle = (props: BlogArticleProps) => {
       <h3 className="article-title">{title}</h3>
       <p className="regular-text article-body">{excerpt}</p>
       <div className="article-cta">
-        <Link href={href ?? "/contact"} className="read-more">Read More</Link>
+        <Link href={href} className="read-more">Read More</Link>
         <ArrowRightAlt className="article-cta-icon" />
       </div>
     </div>

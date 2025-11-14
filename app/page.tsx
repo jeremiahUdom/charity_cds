@@ -8,11 +8,11 @@ import { ARTICLES_QUERY } from "@/sanity/queries/articles";
 import { EVENTS_QUERY } from "@/sanity/queries/events";
 import { urlFor } from "@/sanity/imageBuilder";
 import { SanityDocument } from "next-sanity";
-import { client } from "@/sanity/client";
+import NewsletterSubscription from "@/components/NewsletterSubscription";
 
 export default async function Home() {
-  const articles = await fetchContent(ARTICLES_QUERY);
-  const events = await fetchContent(EVENTS_QUERY);
+  const articles = await fetchContent<SanityDocument[]>(ARTICLES_QUERY);
+  const events = await fetchContent<SanityDocument[]>(EVENTS_QUERY);
 
   return(
     <div className="home">
@@ -33,6 +33,7 @@ export default async function Home() {
           <div className="about-item">
             <h3 className="about-subtitle">{homeContent.aboutPreview.title}</h3>
             <p className="regular-text about-body">{homeContent.aboutPreview.subtext}</p>
+            <Link className="btn" href={"/about"}>Learn More</Link>
           </div>
           <div className="about-item about-img-wrapper">
             <Image
@@ -46,7 +47,7 @@ export default async function Home() {
       </section>
 
       <section className="latest-articles">
-        <h2 className="section-title">Latest Blog</h2>
+        <h2 className="section-title">Latest Articles</h2>
         <div className="container">
           {
             articles.length !== 0 ? articles.map((article: SanityDocument) => (
@@ -61,7 +62,7 @@ export default async function Home() {
                   day: 'numeric'
                 })}
                 excerpt={article.excerpt}
-                href={article.slug}
+                href={`/blog/${article.slug.current}`}
               />
             )) : <p className="empty-state">No articles to display yet</p>
           }
@@ -95,6 +96,7 @@ export default async function Home() {
             </div>
           </div>
       </section>
+      <NewsletterSubscription />
     </div>
   );
 }

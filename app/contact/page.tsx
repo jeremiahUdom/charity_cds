@@ -27,15 +27,19 @@ const page = () => {
             <form action="" className="contact-form">
               <h2 className="section-header">Send Us a Quick Message</h2>
               <div className="form-group">
-                <label htmlFor="name" className="label">Name</label>
-                <input type="text" id="name" name="name" className="input-field" required />
+                <label htmlFor="first-name" className="input-label">First Name</label>
+                <input type="text" id="first-name" name="first-name" className="input-field" placeholder="e.g Jane" required />
               </div>
               <div className="form-group">
-                <label htmlFor="email" className="label">Email</label>
-                <input type="email" id="email" name="email" className="input-field" required />
+                <label htmlFor="last-name" className="input-label">Last Name</label>
+                <input type="text" id="last-name" name="last-name" className="input-field" placeholder="e.g Doe" required />
               </div>
               <div className="form-group">
-                <label htmlFor="message" className="label">Message</label>
+                <label htmlFor="email" className="input-label">Email</label>
+                <input type="email" id="email" name="email" className="input-field" placeholder="e.g sender@gmail.com" required />
+              </div>
+              <div className="form-group">
+                <label htmlFor="message" className="input-label">Message</label>
                 <textarea id="message" name="message" rows={10} required></textarea>
               </div>
               <button type="submit" className="btn contact-btn">Send Message</button>

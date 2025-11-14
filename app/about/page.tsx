@@ -1,14 +1,13 @@
+import NewsletterSubscription from '@/components/NewsletterSubscription';
 import TeamMember from '@/components/TeamMember';
 import { urlFor } from '@/sanity/imageBuilder';
 import { fetchContent } from '@/sanity/lib/fetchers';
 import { TEAM_QUERY } from '@/sanity/queries/team';
 import aboutContent from '@/static/data/aboutContent';
 import Image from 'next/image';
-import React from 'react';
 
 const page = async () => {
   const teamMembers = await fetchContent(TEAM_QUERY);
-  console.log(teamMembers)
 
   return (
     <div className="page about-page">
@@ -26,7 +25,11 @@ const page = async () => {
       <section className="who-we-are">
         <div className="container">
           <div className="about-item about-text">
-            <p className="regular-text">{aboutContent.text}</p>
+            {
+              aboutContent.aboutParagraphs.map((paragraph, index) => (
+                <p className="regular-text" key={index}>{paragraph}</p>
+              ))
+            }
           </div>
           <div className="about-item about-img-wrapper">
             <Image
@@ -46,7 +49,7 @@ const page = async () => {
               {
                 teamMembers.length !== 0 ? teamMembers.map((member) => (
                   <TeamMember 
-                    key={member._key}
+                    key={member._id}
                     name={member.fullName}
                     role={member.role}
                     imgUrl={urlFor(member.image).url()}
@@ -57,6 +60,7 @@ const page = async () => {
             </div>
           </div>
       </section>
+      <NewsletterSubscription />
     </div>
   )
 }

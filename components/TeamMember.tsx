@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import React from 'react';
 
 interface TeamMemberProps{ 
   name: string
@@ -13,7 +12,7 @@ const TeamMember = (props: TeamMemberProps) => {
     <div className="member-card">
       <div className="member-image-wrapper">
         <Image 
-          src={imgUrl}
+          src={imgUrl || "/images/user.png"}
           alt="An image of the team member"
           fill
           className="member-image"

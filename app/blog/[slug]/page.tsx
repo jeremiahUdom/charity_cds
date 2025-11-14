@@ -1,14 +1,24 @@
-import BlogArticle from '@/components/BlogArticle';
+import { client } from '@/sanity/client';
+import { urlFor } from '@/sanity/imageBuilder';
+import { fetchContent } from '@/sanity/lib/fetchers';
+import { ARTICLE_QUERY } from '@/sanity/queries/articles';
 import { CalendarMonth } from '@mui/icons-material';
+import { PortableText, SanityDocument } from 'next-sanity';
 import Image from 'next/image';
-import React from 'react';
 
-const page = () => {
+type Params = Promise<{ slug: string }>
+
+const Page = async ({ params }: { params: Params }) => {
+  const { slug } = await params;
+
+  const article = await fetchContent<SanityDocument>(ARTICLE_QUERY, { slug: slug });
+
+  console.log(article);
   
   return (
     <div className="article-page">
       <div className="container">
-        <h1 className="article-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, unde.</h1>
+        <h1 className="article-title">{article.title}</h1>
       </div>
 
       <div className="container article-date article-meta-data">
@@ -16,14 +26,18 @@ const page = () => {
           <CalendarMonth />
         </span>
         <span className="text">
-          <p>24th Sept, 2025</p>
+          <p>{new Date(article._createdAt).toLocaleDateString("en-us", {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}</p>
         </span>
       </div>
 
       <div className="container">
         <div className="article-full-img-wrapper">
           <Image 
-            src={"/images/hero1.jpg"}
+            src={urlFor(article.coverImage).url()}
             alt="Article image"
             fill
             className="article-image"
@@ -33,15 +47,13 @@ const page = () => {
 
       <section className="article-body-full">
         <div className="container">
-          <p className="regular-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis, dolor beatae quia hic odit, deleniti sapiente rerum nemo eos voluptatibus libero iure veritatis omnis facere placeat amet excepturi iusto distinctio.</p>
-          <p className="regular-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis, dolor beatae quia hic odit, deleniti sapiente rerum nemo eos voluptatibus libero iure veritatis omnis facere placeat amet excepturi iusto distinctio.</p>
-          <p className="regular-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis, dolor beatae quia hic odit, deleniti sapiente rerum nemo eos voluptatibus libero iure veritatis omnis facere placeat amet excepturi iusto distinctio.</p>
-          <p className="regular-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis, dolor beatae quia hic odit, deleniti sapiente rerum nemo eos voluptatibus libero iure veritatis omnis facere placeat amet excepturi iusto distinctio.</p>
-          <p className="regular-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis, dolor beatae quia hic odit, deleniti sapiente rerum nemo eos voluptatibus libero iure veritatis omnis facere placeat amet excepturi iusto distinctio.</p>
+          <div className="body-text">
+            <PortableText value={article.body} />
+          </div>
         </div>
       </section>
     </div>
   );
 }
 
-export default page;
+export default Page;

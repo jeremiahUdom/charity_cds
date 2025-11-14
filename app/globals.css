@@ -20,6 +20,7 @@
   --text-neutral: #73777B;
   --text-neutral-light: #AFAFAF;
   --danger: #DD0303;
+  --border-neutral: #EEE;
 }
 
 body {
@@ -124,7 +125,6 @@ footer .quick-link {
 
 main {
   flex: 1;
-  padding-bottom: 4rem;
 }
 
 .container {
@@ -227,13 +227,14 @@ section {
 .regular-text,
 .program-description,
 .article-body,
-.contact-options {
+.contact-options,
+.body-text {
   font-size: 1rem;
   line-height: 1.8;
   margin-bottom: 1.5rem;
 }
 
-.about .container{
+.about .container {
   flex-direction: column;
   gap: 3rem;
 }
@@ -309,7 +310,8 @@ section {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: baseline;
   border-radius: 10px;
   padding: 1rem;
   transition: transform 0.3s ease;
@@ -489,10 +491,12 @@ textarea:focus {
   border-color: var(--brand);
 }
 
-.label{
+.input-label{
   margin-bottom: .5rem;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1.2rem;
+  margin-bottom: .5rem;
+  font-family: var(--font-raleway), sans-serif;
 }
 
 .contact-btn{
@@ -577,7 +581,7 @@ textarea:focus {
   background-color: var(--background);
   border-radius: 10px;
   transition: transform 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border: 1px solid var(--border-neutral);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -620,6 +624,37 @@ textarea:focus {
   color: var(--text-neutral-light);
 }
 
+.stay-connected{
+  background-color: var(--brand-light);
+}
+
+.stay-connected .container{
+  flex-direction: column;
+}
+
+.stay-connected-title{
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: var(--font-raleway), sans-serif;
+  margin-bottom: 1rem;
+}
+
+.stay-connected-title .subtext{
+  margin-bottom: 1rem;
+}
+
+.stay-connected-form .form-fields{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.blog-page,
+.events-page,
+.article-page {
+  padding-bottom: 2rem;
+}
+
 @media screen and (min-width: 768px) {
   .logo-link{
     font-size: 1.5rem;
@@ -654,7 +689,8 @@ textarea:focus {
   .regular-text,
   .program-description,
   .contact-option,
-  footer .quick-link{
+  footer .quick-link,
+  .body-text{
     font-size: 1.2rem;
   }
 
@@ -679,7 +715,8 @@ textarea:focus {
     gap: 2rem;
   }
 
-  .about-item {
+  .about-item,
+  .mission-item {
     width: 45%;
   }
 
@@ -748,5 +785,13 @@ textarea:focus {
 
   .member-name{
     font-size: 1.5rem;
+  }
+
+  .stay-connected-title{
+    font-size: 2.5rem;
+  }
+
+  .stay-connected-form .form-fields{
+    flex-direction: row;
   }
 }
